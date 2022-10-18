@@ -12,9 +12,14 @@ public class Temperature : MonoBehaviour
 
 	[SerializeField] private UIScene scenes;
 	[SerializeField] private GameObject gameover;
+
+	public void setTemp(float temp)
+	{
+		this.temp += temp * Time.deltaTime;
+	}
 	private void Update()
 	{
-		temp -= 10 * Time.deltaTime;
+		temp -= 7 * Time.deltaTime;
 		slider.value = temp;
 		if (minTemp >= temp)
 		{

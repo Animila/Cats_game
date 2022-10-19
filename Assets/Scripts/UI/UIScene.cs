@@ -32,7 +32,7 @@ public class UIScene : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.F12))
+		if (Input.GetKey(KeyCode.F12) || Input.GetKey(KeyCode.Escape))
 		{
 			SetModal(true, pause);
 		}

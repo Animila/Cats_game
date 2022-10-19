@@ -11,18 +11,18 @@ public class Move : MonoBehaviour
 
 	[SerializeField] private Transform firstCamera;
 
-	[SerializeField] private float food = 100;
+	[SerializeField] private float runStrength = 100;
 	[SerializeField] private Slider slider;
 	private float smooth;
 
-	public void setFood(float food)
+	public void setRunStrength(float food)
 	{
-		this.food = food;
+		this.runStrength = food;
 	}
 
 	private void Update()
 	{
-		slider.value = food;
+		slider.value = runStrength;
 		float horizontal = Input.GetAxisRaw("Horizontal");
 		float vertical = Input.GetAxisRaw("Vertical");
 		Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -34,21 +34,24 @@ public class Move : MonoBehaviour
 			transform.rotation = Quaternion.Euler(0f, angle, 0f);
 			Vector3 move = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
 			controller.Move(move.normalized * Force * Time.deltaTime);
+			GetComponent<Food>().setFood(-6f);
 		}
-		if (Input.GetKey(KeyCode.LeftShift) && food >= 0)
+		if (Input.GetKey(KeyCode.LeftShift) && runStrength >= 0)
 		{
 			Force = 10;
-			food -= 1;
+			runStrength -= 1;
+			GetComponent<Food>().setFood(-10f);
+
 		}
 		else
 		{
 			Force = 5;
-			food += 0.3f;
+			runStrength += 0.3f;
 		}
 
-		if (food >= 100)
+		if (runStrength >= 100)
 		{
-			food = 100;
+			runStrength = 100;
 
 		}
 	}
